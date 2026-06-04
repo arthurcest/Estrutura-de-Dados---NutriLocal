@@ -1,0 +1,20 @@
+# 3.2 - Matrizes (Arrays Bidimensionais)
+
+# Mapeamento dos locais por índice
+# 0 -> Escola A | 1 -> Sítio Pinheiros (Distrito Sudoeste) | 2 -> Sítio Bela Vista
+locais = ["Escola A", "Sítio Pinheiros", "Sítio Bela Vista"]
+
+# Matriz de adjacência (Array Bidimensional) representando a distância em Km
+# Linhas e colunas correspondem aos índices acima
+matriz_distancias = [
+    [0.0, 4.2, 8.5], # Distâncias da Escola A para os demais
+    [4.2, 0.0, 3.1], # Distâncias do Sítio Pinheiros para os demais
+    [8.5, 3.1, 0.0]  # Distâncias do Sítio Bela Vista para os demais
+]
+
+def buscar_distancia(origem_idx, destino_idx):
+    distancia = matriz_distancias[origem_idx][destino_idx]
+    print(f"A distância entre {locais[origem_idx]} e {locais[destino_idx]} é de {distancia} Km.")
+
+# Exemplo de uso: Gestor quer saber a distância da Escola A para o Sítio Pinheiros
+buscar_distancia(0, 1) # Saída: A distância entre Escola A e Sítio Pinheiros é de 4.2 Km.
