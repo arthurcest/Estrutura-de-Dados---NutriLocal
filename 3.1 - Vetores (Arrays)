@@ -1,0 +1,14 @@
+3.1 - Vetores (Arrays)
+
+# Vetor unidimensional para armazenar o estado das 3 configurações de acessibilidade
+# Índices: 0 -> Aumentar Contraste | 1 -> Aumentar Fonte | 2 -> Acessibilidade por voz
+configuracoes_acessibilidade = [False, False, False]
+
+def alternar_configuracao(indice):
+    # Inverte o estado atual da configuração (True para False, ou False para True)
+    configuracoes_acessibilidade[indice] = not configuracoes_acessibilidade[indice]
+    print(f"Estado atual das configurações: {configuracoes_acessibilidade}")
+
+# Exemplo de uso: Usuário ativou "Aumentar Contraste" e "Aumentar Fonte"
+alternar_configuracao(0) # Saída: [True, False, False]
+alternar_configuracao(1) # Saída: [True, True, False]
