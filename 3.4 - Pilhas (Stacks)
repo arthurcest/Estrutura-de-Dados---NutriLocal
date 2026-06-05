@@ -1,0 +1,28 @@
+# 3.4 - Pilhas (Stacks)
+
+# A pilha será representada por uma lista em Python, utilizando append() e pop()
+pilha_editais_excluidos = []
+editais_ativos = ["Edital 01/2026 - Mandioca", "Edital 02/2026 - Hortaliças"]
+
+def excluir_edital(edital):
+    if edital in editais_ativos:
+        editais_ativos.remove(edital)
+        # Empilha o edital excluído (LIFO - Last-In, First-Out)
+        pilha_editais_excluidos.append(edital) 
+        print(f"Edital '{edital}' excluído e movido para a pilha.")
+
+def desfazer_exclusao():
+    if pilha_editais_excluidos:
+        # Desempilha o último edital excluído
+        edital_restaurado = pilha_editais_excluidos.pop()
+        editais_ativos.append(edital_restaurado)
+        print(f"Ação desfeita! Edital '{edital_restaurado}' foi restaurado.")
+    else:
+        print("Não há ações para desfazer.")
+
+# Exemplo de uso
+excluir_edital("Edital 01/2026 - Mandioca") 
+# Edital excluído e movido para a pilha temporária.
+
+desfazer_exclusao() 
+# Ação desfeita! Edital restaurado.
