@@ -1,0 +1,53 @@
+# 3.5 - Árvores (Trees)
+
+# Implementação básica de um nó de Árvore Trie (Árvore de Prefixos)
+class TrieNode:
+    def __init__(self):
+        self.filhos = {}
+        self.fim_da_palavra = False
+
+class ArvoreTrie:
+    def __init__(self):
+        self.raiz = TrieNode()
+
+    def inserir_produto(self, palavra):
+        palavra = palavra.lower()
+        no_atual = self.raiz
+        for letra in palavra:
+            if letra not in no_atual.filhos:
+                no_atual.filhos[letra] = TrieNode()
+            no_atual = no_atual.filhos[letra]
+        no_atual.fim_da_palavra = True
+
+    def sugerir_autocomplete(self, prefixo):
+        prefixo = prefixo.lower()
+        no_atual = self.raiz
+        for letra in prefixo:
+            if letra not in no_atual.filhos:
+                return [] # Prefixo não encontrado
+            no_atual = no_atual.filhos[letra]
+        
+        # Realiza busca em profundidade a partir do prefixo encontrado
+        sugestoes = []
+        self._buscar_palavras(no_atual, prefixo, sugestoes)
+        return sugestoes
+
+    def _buscar_palavras(self, no, palavra_atual, sugestoes):
+        if no.fim_da_palavra:
+            sugestoes.append(palavra_atual)
+        for letra, no_filho in no.filhos.items():
+            self._buscar_palavras(no_filho, palavra_atual + letra, sugestoes)
+
+# Exemplo de uso para a busca do NutriLocal
+catalogo = ArvoreTrie()
+produtos = ["Mandioca", "Milho", "Maracujá", "Banana", "Hortaliças"]
+
+# Povoando a Árvore
+for prod in produtos:
+    catalogo.inserir_produto(prod)
+
+# O gestor digita apenas "Ma" na barra de busca
+texto_digitado = "Ma"
+resultados = catalogo.sugerir_autocomplete(texto_digitado)
+print(f"Sugestões para '{texto_digitado}': {resultados}") 
+# Saída: Sugestões para 'Ma': ['mandioca', 'maracujá']
