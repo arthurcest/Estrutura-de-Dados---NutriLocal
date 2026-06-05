@@ -1,0 +1,30 @@
+from collections import deque
+
+# Utilizando deque (double-ended queue) da biblioteca padrão para otimizar a fila em Python
+fila_prestacao_contas = deque()
+
+def submeter_relatorio(produtor):
+    # Novo relatório entra no final da fila (First-In) com status "Em Análise"
+    relatorio = {"produtor": produtor, "status": "Em Análise"}
+    fila_prestacao_contas.append(relatorio)
+    print(f"Relatório de '{produtor}' submetido com sucesso e aguardando avaliação.")
+
+def avaliar_proximo_relatorio():
+    if fila_prestacao_contas:
+        # Remove e avalia o primeiro relatório da fila (First-Out)
+        relatorio_atual = fila_prestacao_contas.popleft()
+        
+        # Simulando a aprovação pelo gestor municipal
+        relatorio_atual["status"] = "Aprovado"
+        print(f"O relatório de '{relatorio_atual['produtor']}' foi avaliado. Novo status: {relatorio_atual['status']}.")
+    else:
+        print("Não há relatórios pendentes na fila.")
+
+# Exemplo de uso prático no sistema:
+# 1. Produtores submetem suas documentações
+submeter_relatorio("Sítio Pinheiros - Família Silva")
+submeter_relatorio("Produtor Familiar Individual")
+
+# 2. A gestão avalia rigorosamente na ordem de chegada (FIFO)
+avaliar_proximo_relatorio() 
+# Saída: O relatório de 'Sítio Pinheiros - Família Silva' foi avaliado. Novo status: Aprovado.
